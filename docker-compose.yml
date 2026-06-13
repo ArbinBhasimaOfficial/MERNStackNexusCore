@@ -1,0 +1,15 @@
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - "15790:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis
+    ports:
+      - "15791:6379"
+
+volumes:
+  mongo_data:
