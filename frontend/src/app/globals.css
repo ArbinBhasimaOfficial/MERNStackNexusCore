@@ -1,1 +1,17 @@
 @import "tailwindcss";
+:root {
+    --primary:
+        #00ffff, --secondary: #1a1a1a, --tertiary: #008b8b, --neutral: #000000;
+}
+
+:headline {
+    font-family: Inter;
+}
+
+:body {
+    font-family: Inter;
+}
+
+:label {
+    font-family: Jetbrains Mono;
+}
