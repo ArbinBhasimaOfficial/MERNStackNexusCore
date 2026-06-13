@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Globe, Menu } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ChevronDown } from "lucide-react";
 
 export default function Navbar() {
   const navRef = useRef<HTMLDivElement>(null);
@@ -84,8 +85,8 @@ export default function Navbar() {
             >
               Login
             </a>
-            <button className="bg-cyan-400 text-zinc-950 font-bold px-4 py-2 rounded-xl text-sm hover:bg-cyan-300 transition-all active:scale-95 shadow-sm shadow-cyan-500/10">
-              Get in touch
+            <button className="bg-cyan-400 text-zinc-950 border border-transparent font-bold px-6 py-3.5 rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all duration-300 hover:bg-zinc-950 hover:text-cyan-400 hover:border-cyan-400 active:scale-95 shadow-lg shadow-cyan-500/10 whitespace-nowrap">
+              Get in touch <ChevronDown className="w-3.5 h-3.5" />
             </button>
           </div>
 
