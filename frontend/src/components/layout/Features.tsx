@@ -4,17 +4,21 @@ import { useRef } from "react";
 import { ArrowUpRight, BarChart2, Lightbulb, TrendingUp } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useTranslation, dictionary } from "../../context/languageContext"; // Import Global Translator
 
 interface CapabilityItem {
   id: string;
   icon: React.ReactNode;
-  title: string;
-  desc: string;
+  titleKey: keyof (typeof dictionary)["en"]; // Bound to translation dictionary keys
+  descKey: keyof (typeof dictionary)["en"]; // Bound to translation dictionary keys
 }
 
 export default function Features() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsMapRef = useRef<Map<string, HTMLDivElement>>(new Map());
+
+  // Connect the translation engine hook
+  const { t } = useTranslation();
 
   const setCardRef = (el: HTMLDivElement | null, key: string) => {
     if (el) {
@@ -88,20 +92,20 @@ export default function Features() {
     {
       id: "consumer-demand",
       icon: <BarChart2 className="w-5 h-5" />,
-      title: "Consumer Demand",
-      desc: "We track consumer what they want, and why, to isolate blind spots and modernize how businesses forecast demand and disrupt alternatives.",
+      titleKey: "featConsumerTitle",
+      descKey: "featConsumerDesc",
     },
     {
       id: "innovation-strategy",
       icon: <Lightbulb className="w-5 h-5" />,
-      title: "Innovation Strategy",
-      desc: "Validate innovation and futureproofing risk solutions uncovering hidden market opportunities and build a pipeline of ideas that fuel long term growth.",
+      titleKey: "featInnovationTitle",
+      descKey: "featInnovationDesc",
     },
     {
       id: "market-expansion",
       icon: <TrendingUp className="w-5 h-5" />,
-      title: "Market Expansion",
-      desc: "Map market models, how they work and rules for sizing for dynamic segments, localized contexts where your brand has its greatest potential to thrive.",
+      titleKey: "featExpansionTitle",
+      descKey: "featExpansionDesc",
     },
   ];
 
@@ -116,17 +120,17 @@ export default function Features() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-14">
           <div className="space-y-2">
             <span className="text-xs font-semibold uppercase tracking-widest text-cyan-600 block animate-feature-header">
-              How we help you grow
+              {t("featuresSubHeader")}
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 animate-feature-header">
-              Intelligence built for every decision
+              {t("featuresMainHeader")}
             </h2>
           </div>
           <a
             href="#capabilities"
             className="animate-feature-header text-cyan-600 hover:text-cyan-700 text-xs font-bold tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors group"
           >
-            View all capabilities
+            {t("featuresViewAll")}
             <ArrowUpRight className="w-3.5 h-3.5 transform transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
@@ -148,12 +152,12 @@ export default function Features() {
                   {item.icon}
                 </div>
 
-                {/* Content */}
+                {/* Content translated dynamically using keys */}
                 <h3 className="text-xl font-bold text-zinc-900 tracking-tight mb-3">
-                  {item.title}
+                  {t(item.titleKey)}
                 </h3>
                 <p className="text-zinc-500 text-sm leading-relaxed mb-6">
-                  {item.desc}
+                  {t(item.descKey)}
                 </p>
               </div>
 
@@ -163,7 +167,7 @@ export default function Features() {
                   href="#learn"
                   className="text-cyan-600 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 hover:text-cyan-700 transition-colors group-hover:text-cyan-600"
                 >
-                  Learn more
+                  {t("featuresLearnMore")}
                   <ArrowUpRight className="w-3.5 h-3.5 transform transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </div>

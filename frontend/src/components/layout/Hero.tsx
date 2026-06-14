@@ -4,10 +4,11 @@ import { useRef, useEffect } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useTranslation } from "../../context/languageContext"; // Import Global Translator
 
 interface HeroStatItem {
   id: string;
-  label: string;
+  labelKey: "statBrands" | "statTrends" | "statRetention"; // Bind strictly to dictionary keys
   numericValue: number;
   suffix: string;
 }
@@ -16,6 +17,9 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const statsMapRef = useRef<Map<string, HTMLDivElement>>(new Map());
+
+  // Connect the translation engine hook
+  const { t } = useTranslation();
 
   const setStatRef = (el: HTMLDivElement | null, key: string) => {
     if (el) {
@@ -28,14 +32,14 @@ export default function Hero() {
   const heroStats: HeroStatItem[] = [
     {
       id: "hero-brands",
-      label: "Brands optimized",
+      labelKey: "statBrands",
       numericValue: 12,
       suffix: "K+",
     },
-    { id: "hero-trends", label: "New Trends/mo", numericValue: 86, suffix: "" },
+    { id: "hero-trends", labelKey: "statTrends", numericValue: 86, suffix: "" },
     {
       id: "hero-retention",
-      label: "Client retention",
+      labelKey: "statRetention",
       numericValue: 98,
       suffix: "%",
     },
@@ -90,12 +94,20 @@ export default function Hero() {
     earth.position.y = 0.2;
 
     let animationFrameId: number;
-    const clock = new THREE.Clock();
+
+    // Instantiate the spec-compliant Timer object
+    const timer = new THREE.Timer();
 
     const animate = () => {
-      const elapsedTime = clock.getElapsedTime();
+      // 1. Advance the timer tracking internals for the current animation frame
+      timer.update();
+
+      // 2. Fetch the calculated elapsed runtime values safely
+      const elapsedTime = timer.getElapsed();
+
       earth.rotation.y = elapsedTime * 0.06;
       earth.rotation.x = elapsedTime * 0.02;
+
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -138,12 +150,10 @@ export default function Hero() {
 
         gsap.to(proxy, {
           value: stat.numericValue,
-          duration: 2.2, // Extended slightly for a more premium, satisfying roll
+          duration: 2.2,
           delay: 0.5,
-          ease: "power2.out", // Smoother deceleration curve for sequential values
+          ease: "power2.out",
           onUpdate: () => {
-            // If the value is a whole number, render it as an integer
-            // Otherwise, show 1 decimal point to create a fluid motion profile
             const currentVal = proxy.value;
             const isFinished = currentVal === stat.numericValue;
 
@@ -151,7 +161,6 @@ export default function Hero() {
               ? `${stat.numericValue}${stat.suffix}`
               : `${currentVal.toFixed(1)}${stat.suffix}`;
           },
-          // Ensure a crisp integer snap on completion
           onComplete: () => {
             node.innerText = `${stat.numericValue}${stat.suffix}`;
           },
@@ -184,25 +193,23 @@ export default function Hero() {
         <div className="animate-hero-fade">
           <span className="inline-flex items-center gap-2 bg-cyan-950/40 text-cyan-400 text-xs font-semibold px-3.5 py-1.5 rounded-full border border-cyan-800/40 mb-8 backdrop-blur-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            Predictive Market Intelligence
+            {t("heroBadge")}
           </span>
         </div>
 
         {/* Hero Typography */}
         <h1 className="animate-hero-fade text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-6 leading-[1.15]">
-          Anticipate what&apos;s
+          {t("heroHeadingMain")}
           <br />
-          next in your{" "}
+          {t("heroHeadingSub")}{" "}
           <span className="text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.15)]">
-            market
+            {t("heroMarket")}
           </span>
         </h1>
 
         {/* Sub-Paragraph */}
         <p className="animate-hero-fade text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto mb-14 leading-relaxed font-medium">
-          Nexus Core equips ambitious brands with real time consumer data, trend
-          analysis, and predictive intelligence to act decisively and lead with
-          confidence.
+          {t("heroDescription")}
         </p>
 
         {/* Metrics Grid Container */}
@@ -216,7 +223,7 @@ export default function Hero() {
                 0{s.suffix}
               </div>
               <div className="text-[11px] text-zinc-500 mt-1.5 uppercase tracking-widest font-bold">
-                {s.label}
+                {t(s.labelKey)}
               </div>
             </div>
           ))}

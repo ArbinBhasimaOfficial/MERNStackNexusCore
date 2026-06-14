@@ -4,16 +4,20 @@ import { useRef } from "react";
 import { ArrowUpRight, Cpu, Compass, Database } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useTranslation, dictionary } from "../../context/languageContext"; // Import Global Translator
 
 interface SolutionItem {
   id: string;
   icon: React.ReactNode;
-  title: string;
-  desc: string;
+  titleKey: keyof (typeof dictionary)["en"]; // Explicitly bound to dictionary keys
+  descKey: keyof (typeof dictionary)["en"]; // Explicitly bound to dictionary keys
 }
 
 export default function Solutions() {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Connect the translation engine hook
+  const { t } = useTranslation();
 
   // Typed Map instance to explicitly hold HTML div nodes paired to string identifiers
   const cardsMapRef = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -87,20 +91,20 @@ export default function Solutions() {
     {
       id: "on-demand",
       icon: <Cpu className="w-4 h-4" />,
-      title: "On-Demand",
-      desc: "Agile workflow platform paired with data to unlock structural decision making wherever you globally operate.",
+      titleKey: "solOnDemandTitle",
+      descKey: "solOnDemandDesc",
     },
     {
       id: "consulting",
       icon: <Compass className="w-4 h-4" />,
-      title: "Consulting",
-      desc: "Live data and insights inside your native optimization frameworks and internal organizational workflows.",
+      titleKey: "solConsultingTitle",
+      descKey: "solConsultingDesc",
     },
     {
       id: "integrations",
       icon: <Database className="w-4 h-4" />,
-      title: "Integrations",
-      desc: "Live data and insights inside your native optimization frameworks and internal organizational workflows.",
+      titleKey: "solIntegrationsTitle",
+      descKey: "solIntegrationsDesc",
     },
   ];
 
@@ -114,10 +118,10 @@ export default function Solutions() {
         {/* Header Block */}
         <div className="mb-14 animate-header">
           <span className="text-xs font-semibold uppercase tracking-widest text-cyan-600 block mb-3">
-            Nexus Core Solutions
+            {t("solutionsSubHeader")}
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900">
-            Equip your business to predict what&apos;s next
+            {t("solutionsMainHeader")}
           </h2>
         </div>
 
@@ -140,12 +144,12 @@ export default function Solutions() {
 
                 {/* Card Title */}
                 <h3 className="text-zinc-900 text-xl font-bold tracking-tight mb-3 transition-colors duration-300 group-hover:text-white">
-                  {item.title}
+                  {t(item.titleKey)}
                 </h3>
 
                 {/* Card Description */}
                 <p className="text-zinc-500 text-sm leading-relaxed transition-colors duration-300 group-hover:text-zinc-400">
-                  {item.desc}
+                  {t(item.descKey)}
                 </p>
               </div>
 
@@ -155,7 +159,7 @@ export default function Solutions() {
                   href="#learn"
                   className="text-cyan-600 font-bold text-xs uppercase tracking-wider inline-flex items-center gap-1.5 transition-colors duration-300 group-hover:text-cyan-400"
                 >
-                  Learn More
+                  {t("solutionsLearnMore")}
                   <ArrowUpRight className="w-3.5 h-3.5 transform transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               </div>

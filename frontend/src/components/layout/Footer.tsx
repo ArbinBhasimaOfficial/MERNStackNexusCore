@@ -1,6 +1,21 @@
 "use client";
 
+import { useTranslation, dictionary } from "../../context/languageContext"; // Adjust directory path if necessary
+
+interface NavigationLink {
+  labelKey: keyof (typeof dictionary)["en"];
+  href: string;
+}
+
+interface NavigationSection {
+  titleKey: keyof (typeof dictionary)["en"];
+  links: NavigationLink[];
+}
+
 export default function Footer() {
+  // Connect the translation engine hook
+  const { t } = useTranslation();
+
   // Pure SVG paths to guarantee absolute compile safety and zero dependencies
   const socialLinks = [
     {
@@ -49,32 +64,32 @@ export default function Footer() {
     },
   ];
 
-  const navigationSections = [
+  const navigationSections: NavigationSection[] = [
     {
-      title: "Solutions",
+      titleKey: "navSolutions",
       links: [
-        { label: "On-Demand", href: "#ondemand" },
-        { label: "Consulting", href: "#consulting" },
-        { label: "Integrations", href: "#integrations" },
-        { label: "Experts", href: "#experts" },
+        { labelKey: "labelOnDemand", href: "#ondemand" },
+        { labelKey: "labelConsulting", href: "#consulting" },
+        { labelKey: "labelIntegrations", href: "#integrations" },
+        { labelKey: "labelExperts", href: "#experts" },
       ],
     },
     {
-      title: "Company",
+      titleKey: "navCompany",
       links: [
-        { label: "About", href: "#about" },
-        { label: "Careers", href: "#careers" },
-        { label: "Press", href: "#press" },
-        { label: "Contact", href: "#contact" },
+        { labelKey: "labelAbout", href: "#about" },
+        { labelKey: "labelCareers", href: "#careers" },
+        { labelKey: "labelPress", href: "#press" },
+        { labelKey: "labelContact", href: "#contact" },
       ],
     },
     {
-      title: "Resources",
+      titleKey: "navResources",
       links: [
-        { label: "Articles", href: "#articles" },
-        { label: "Downloads", href: "#downloads" },
-        { label: "Events", href: "#events" },
-        { label: "Podcasts", href: "#podcasts" },
+        { labelKey: "labelArticles", href: "#articles" },
+        { labelKey: "labelDownloads", href: "#downloads" },
+        { labelKey: "labelEvents", href: "#events" },
+        { labelKey: "labelPodcasts", href: "#podcasts" },
       ],
     },
   ];
@@ -96,8 +111,7 @@ export default function Footer() {
             </div>
 
             <p className="text-zinc-500 max-w-xs leading-relaxed font-medium">
-              Predictive market intelligence mapping macro environments and
-              client behavior dependencies in real time.
+              {t("footerBrandDesc")}
             </p>
 
             {/* Dynamic Social Vector Links */}
@@ -117,18 +131,18 @@ export default function Footer() {
 
           {/* Mapped Directory Links */}
           {navigationSections.map((section) => (
-            <div key={section.title}>
+            <div key={section.titleKey}>
               <h4 className="text-white font-bold mb-4 uppercase tracking-widest text-[10px]">
-                {section.title}
+                {t(section.titleKey)}
               </h4>
               <ul className="space-y-3">
                 {section.links.map((link) => (
-                  <li key={link.label}>
+                  <li key={link.labelKey}>
                     <a
                       href={link.href}
                       className="hover:text-white transition-colors duration-200 font-medium text-zinc-400/90"
                     >
-                      {link.label}
+                      {t(link.labelKey)}
                     </a>
                   </li>
                 ))}
@@ -139,25 +153,25 @@ export default function Footer() {
 
         {/* Bottom Metadata Ribbon */}
         <div className="pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-600 font-medium">
-          <p>© 2026 Nexus Core, LLC. All rights reserved.</p>
+          <p>{t("footerRights")}</p>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <a
               href="#privacy"
               className="hover:text-zinc-400 transition-colors duration-200"
             >
-              Privacy Policy
+              {t("footerPrivacy")}
             </a>
             <a
               href="#terms"
               className="hover:text-zinc-400 transition-colors duration-200"
             >
-              Terms of Service
+              {t("footerTerms")}
             </a>
             <a
               href="#cookies"
               className="hover:text-zinc-400 transition-colors duration-200"
             >
-              Cookie Preferences
+              {t("footerCookies")}
             </a>
           </div>
         </div>

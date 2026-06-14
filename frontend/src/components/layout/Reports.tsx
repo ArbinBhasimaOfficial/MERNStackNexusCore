@@ -4,19 +4,23 @@ import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useTranslation, dictionary } from "../../context/languageContext"; // Import Global Translator
 
 interface ReportItem {
   id: string;
-  badge: string;
+  badgeKey: keyof (typeof dictionary)["en"]; // Explicitly typed to dictionary keys
   badgeColor: string;
-  title: string;
-  desc: string;
+  titleKey: keyof (typeof dictionary)["en"]; // Explicitly typed to dictionary keys
+  descKey: keyof (typeof dictionary)["en"]; // Explicitly typed to dictionary keys
   bgContent: "binary" | "bars" | "pulse";
 }
 
 export default function Reports() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsMapRef = useRef<Map<string, HTMLDivElement>>(new Map());
+
+  // Connect the translation engine hook
+  const { t } = useTranslation();
 
   const setCardRef = (el: HTMLDivElement | null, key: string) => {
     if (el) {
@@ -110,26 +114,26 @@ export default function Reports() {
   const reports: ReportItem[] = [
     {
       id: "predictions-2026",
-      badge: "Financial Services",
+      badgeKey: "badgeFinancial",
       badgeColor: "bg-emerald-500/15 text-emerald-400 border-emerald-500/20",
-      title: "2026 Global Consumer Predictions",
-      desc: "Three key pillars forecasting how consumers are reimagining their lives and connecting with brands.",
+      titleKey: "reportPredTitle",
+      descKey: "reportPredDesc",
       bgContent: "binary",
     },
     {
       id: "ai-whitespace",
-      badge: "Technology",
+      badgeKey: "badgeTech",
       badgeColor: "bg-cyan-500/15 text-cyan-400 border-cyan-500/20",
-      title: "The Next Big Whitespace in AI",
-      desc: "Discover the high impact, and high margin whitespace formats to unlock dynamic growth.",
+      titleKey: "reportWhiteTitle",
+      descKey: "reportWhiteDesc",
       bgContent: "bars",
     },
     {
       id: "mega-trends",
-      badge: "Retail",
+      badgeKey: "badgeRetail",
       badgeColor: "bg-sky-500/15 text-sky-400 border-sky-500/20",
-      title: "5 Mega Trends Transforming 2026/27",
-      desc: "From macro-economic shifts, discover the trends powering Market Intelligence.",
+      titleKey: "reportTrendsTitle",
+      descKey: "reportTrendsDesc",
       bgContent: "pulse",
     },
   ];
@@ -145,14 +149,14 @@ export default function Reports() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-14">
           <div className="space-y-2">
             <span className="text-xs font-semibold uppercase tracking-widest text-cyan-600 block animate-header-element">
-              Free Intelligence Downloads
+              {t("reportsSubHeader")}
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 animate-header-element">
-              Fresh insights into the markets that matter
+              {t("reportsMainHeader")}
             </h2>
           </div>
           <button className="animate-header-element bg-white border border-zinc-200 text-zinc-600 font-bold px-5 py-2.5 rounded-xl text-xs hover:bg-zinc-50 hover:text-zinc-900 transition-colors shadow-sm whitespace-nowrap">
-            Browse all reports
+            {t("reportsBrowseAll")}
           </button>
         </div>
 
@@ -201,11 +205,11 @@ export default function Reports() {
                   )}
                 </div>
 
-                {/* Floating Badge */}
+                {/* Floating Badge (Dynamic Text Translation) */}
                 <span
                   className={`absolute top-4 left-4 text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wide border backdrop-blur-md ${report.badgeColor}`}
                 >
-                  {report.badge}
+                  {t(report.badgeKey)}
                 </span>
               </div>
 
@@ -213,10 +217,10 @@ export default function Reports() {
               <div className="p-8 flex flex-col grow justify-between bg-white">
                 <div className="space-y-3">
                   <h3 className="text-xl font-bold text-zinc-900 tracking-tight line-clamp-2 leading-snug">
-                    {report.title}
+                    {t(report.titleKey)}
                   </h3>
                   <p className="text-zinc-500 text-sm leading-relaxed line-clamp-3">
-                    {report.desc}
+                    {t(report.descKey)}
                   </p>
                 </div>
 
@@ -225,7 +229,7 @@ export default function Reports() {
                     href="#download"
                     className="text-cyan-600 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 hover:text-cyan-700 transition-colors group"
                   >
-                    Download
+                    {t("reportsDownloadAction")}
                     <ArrowUpRight className="w-3.5 h-3.5 transform transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </a>
                 </div>

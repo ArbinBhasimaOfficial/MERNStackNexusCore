@@ -3,16 +3,20 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useTranslation } from "../../context/languageContext"; // Import Global Translator
 
 interface StatItem {
   id: string;
-  label: string;
+  labelKey: "statsReports" | "statsMarkets" | "statsRetention"; // Explicitly typed to dictionary keys
   numericValue: number;
   suffix: string;
 }
 
 export default function Stats() {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Connect the translation engine hook
+  const { t } = useTranslation();
 
   // Explicitly map string IDs to tracking elements to protect SSR boundaries
   const targetsMapRef = useRef<Map<string, HTMLHeadingElement>>(new Map());
@@ -28,14 +32,14 @@ export default function Stats() {
   const statsData: StatItem[] = [
     {
       id: "reports",
-      label: "Reports Published",
+      labelKey: "statsReports",
       numericValue: 12,
       suffix: "k+",
     },
-    { id: "markets", label: "Markets Covered", numericValue: 86, suffix: "" },
+    { id: "markets", labelKey: "statsMarkets", numericValue: 86, suffix: "" },
     {
       id: "retention",
-      label: "Client Retention",
+      labelKey: "statsRetention",
       numericValue: 98,
       suffix: "%",
     },
@@ -102,7 +106,10 @@ export default function Stats() {
               0{s.suffix}
             </h2>
 
-            <p className="text-zinc-400 text-sm font-medium mt-2">{s.label}</p>
+            {/* Dynamic translation lookup via labelKey properties */}
+            <p className="text-zinc-400 text-sm font-medium mt-2">
+              {t(s.labelKey)}
+            </p>
           </div>
         ))}
       </div>

@@ -3,11 +3,15 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useTranslation } from "../../context/languageContext"; // Import Global Translator
 
 export default function LogoStrips() {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
+
+  // Connect the translation engine hook
+  const { t } = useTranslation();
 
   const baseLogos = [
     "Vantone",
@@ -73,8 +77,9 @@ export default function LogoStrips() {
       id="brands"
     >
       <div className="max-w-7xl mx-auto px-4 text-center">
+        {/* Dynamic translation mapping applied directly here */}
         <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-8">
-          Trusted by thousands of global businesses
+          {t("logoStripsHeading")}
         </p>
       </div>
 
