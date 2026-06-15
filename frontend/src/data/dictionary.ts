@@ -105,6 +105,38 @@ export const dictionary = {
     labelDownloads: "Downloads",
     labelEvents: "Events",
     labelPodcasts: "Podcasts",
+    register: "Register",
+    loginHeading: "Sign in to your account",
+    loginTab: "Login",
+    registerTab: "Register",
+    welcomeBack: "Welcome back.",
+    marketIntelligenceAwaits: "Your market intelligence awaits.",
+    signInDesc:
+      "Sign in to access reports, dashboards, and predictive insights tailored to your team.",
+    emailLabel: "Email",
+    emailPlaceholder: "Work email address",
+    passwordLabel: "Password",
+    passwordPlaceholder: "Password",
+    rememberMe: "Remember me",
+    forgotPassword: "Forgot password?",
+    signInBtn: "Sign In",
+    orContinueWith: "OR CONTINUE WITH",
+    dontHaveAccount: "Don't have an account?",
+    startFreeTrial: "Start free trial",
+    secureAccess: "Secure access",
+    verification: {
+      title: "Verify your account",
+      codeLabel: "Verification Code",
+      codeSubtext: "Enter the 6-digit code sent to",
+      alertTitle: "We sent a verification email",
+      alertBody:
+        "Check your inbox and spam folder. The code expires in 10 minutes.",
+      resendAvailable: "Resend available in",
+      resendBtn: "Resend code",
+      verifyBtn: "Verify Account",
+      didNotReceive: "Didn't receive it?",
+      changeEmail: "Change email",
+    },
   },
   ne: {
     solutions: "समाधानहरू",
@@ -211,6 +243,7 @@ export const dictionary = {
     labelDownloads: "डाउनलोडहरू",
     labelEvents: "कार्यक्रमहरू",
     labelPodcasts: "पोडकास्टहरू",
+    register: "दर्ता गर्नुहोस्",
   },
   ja: {
     solutions: "ソリューション",
@@ -316,6 +349,7 @@ export const dictionary = {
     labelDownloads: "資料ダウンロード",
     labelEvents: "イベント",
     labelPodcasts: "ポッドキャスト",
+    register: "新規登録",
   },
   es: {
     solutions: "Soluciones",
@@ -421,6 +455,7 @@ export const dictionary = {
     labelDownloads: "Descargas",
     labelEvents: "Eventos",
     labelPodcasts: "Podcasts",
+    register: "Registrarse",
   },
   fr: {
     solutions: "Solutions",
@@ -526,6 +561,7 @@ export const dictionary = {
     labelDownloads: "Téléchargements",
     labelEvents: "Événements",
     labelPodcasts: "Podcasts",
+    register: "S'inscrire",
   },
   de: {
     solutions: "Lösungen",
@@ -632,5 +668,6 @@ export const dictionary = {
     labelDownloads: "Downloads",
     labelEvents: "Events",
     labelPodcasts: "Podcasts",
+    register: "Registrieren",
   },
 };

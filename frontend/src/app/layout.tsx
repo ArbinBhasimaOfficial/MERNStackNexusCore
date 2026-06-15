@@ -1,5 +1,6 @@
 import "./globals.css";
 import { LanguageProvider } from "../context/languageContext";
+import { AuthProvider } from "@/context/authContext";
 
 export default function RootLayout({
   children,
@@ -9,7 +10,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

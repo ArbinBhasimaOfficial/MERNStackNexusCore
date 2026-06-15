@@ -1,6 +1,7 @@
 "use client";
 
-import { useTranslation, dictionary } from "../../context/languageContext"; // Adjust directory path if necessary
+import { useTranslation } from "../../context/languageContext"; // Adjust directory path if necessary
+import { dictionary } from "../../data/dictionary";
 
 interface NavigationLink {
   labelKey: keyof (typeof dictionary)["en"];

@@ -5,7 +5,8 @@ import Link from "next/link";
 import { Globe, ChevronDown } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useTranslation, dictionary } from "../../context/languageContext"; // Hook up context
+import { useTranslation } from "../../context/languageContext"; // Hook up context
+import { dictionary } from "../../data/dictionary";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -142,12 +143,18 @@ export default function Navbar() {
               )}
             </div>
 
-            <a
-              href="#login"
+            <Link
+              href="/login"
               className="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors"
             >
               {t("login")}
-            </a>
+            </Link>
+            <Link
+              href="/register"
+              className="text-sm font-medium text-zinc-400 hover:text-cyan-400 transition-colors"
+            >
+              {t("register")}
+            </Link>
             <button className="bg-cyan-400 text-zinc-950 border border-transparent font-bold px-6 py-3.5 rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all duration-300 hover:bg-zinc-950 hover:text-cyan-400 hover:border-cyan-400 active:scale-95 shadow-lg shadow-cyan-500/10 whitespace-nowrap">
               {t("getInTouch")} <ChevronDown className="w-3.5 h-3.5" />
             </button>
